@@ -2,45 +2,38 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/devaerial/.oh-my-zsh
+export ZSH="/Users/deepaerial/.oh-my-zsh"
 
-# Environment Variables
-export JAVA_HOME=$(which java)
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-
-GEOMETRY_SYMBOL_PROMPT="$"                  # default prompt symbol
-GEOMETRY_SYMBOL_RPROMPT=">"                 # multiline prompts
-GEOMETRY_SYMBOL_EXIT_VALUE="$"              # displayed when exit value is != 0
-GEOMETRY_SYMBOL_ROOT="#"   
-
-GEOMETRY_PROMPT_PLUGINS=( exec_time jobs git hg virtualenv )
-
-ZSH_THEME="geometry/geometry"
-
-# Powerline configurations
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -61,34 +54,22 @@ ZSH_THEME="geometry/geometry"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    sudo
-    debian
-    git
-    python
-    pip
-    pipenv
-    django
-    virtualenv
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    celery
-    extract
-    docker
-    docker-compose
-    httpie
-    zsh-nvm
-)
+plugins=(git)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -108,9 +89,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -120,35 +98,33 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if [ -f ~/.bash_aliases ]; then                                                                                                                    
-     . ~/.bash_aliases
+# Geometry theme configurations
+GEOMETRY_SYMBOL_PROMPT="$"                  # default prompt symbol
+GEOMETRY_SYMBOL_RPROMPT=">"                 # multiline prompts
+GEOMETRY_SYMBOL_EXIT_VALUE="$"              # displayed when exit value is != 0
+GEOMETRY_SYMBOL_ROOT="#" 
+
+PATH="$PATH:/Users/deepaerial/.local/bin"
+
+# Virtualenvwrapper
+if [ -f ~/.local/bin/virtualenvwrapper.sh ] ; then
+   export WORKON_HOME=~/.virtualenvs
+   export VIRTUALENVWRAPPER_PYTHON=$HOME/.pyenv/shims/python
+   export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+   source ~/.local/bin/virtualenvwrapper.sh
 fi
 
-# zsh-autosuggestions configs
-bindkey '^ ' autosuggest-accept
+# Antigen loader
+source "$HOME/.antigen.zsh"
+antigen init "$HOME/.antigenrc"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/devaerial/.sdkman"
-[[ -s "/home/devaerial/.sdkman/bin/sdkman-init.sh" ]] && source "/home/devaerial/.sdkman/bin/sdkman-init.sh"
-# Virtualenvwrapper configuration
-export WORKON_HOME="$HOME/.virtualenvs"
-source "/usr/local/bin/virtualenvwrapper.sh"
+# Zsh-autosuggestions binding key
+# bindkey "^[[A" autosuggest-accept
 
-export PROJECTS="$HOME/projects"
-#####
-# Pyenv configurations
-export PATH="/home/devaerial/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-#####
-# Pipenv configurations
+# Pipenv configuration 
 export PIPENV_VENV_IN_PROJECT=1
-eval "$(pipenv --completion)"
-#####
+
 # NVM configuration
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#####
-# PIPX autocompletions
-eval "$(register-python-argcomplete pipx)"
