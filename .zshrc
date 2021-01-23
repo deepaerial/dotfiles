@@ -8,7 +8,7 @@ export ZSH="/Users/deepaerial/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +68,10 @@ export ZSH="/Users/deepaerial/.oh-my-zsh"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	git
+	poetry
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,6 +100,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim="nvim"
+alias ls="colorls"
+
+export EDITOR=nvim
+# Locale setup
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Geometry theme configurations
 GEOMETRY_SYMBOL_PROMPT="$"                  # default prompt symbol
@@ -130,4 +140,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Poetry config
+# Poetry virtualenv plugin
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(rbenv init -)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/deepaerial/.sdkman"
+[[ -s "/Users/deepaerial/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/deepaerial/.sdkman/bin/sdkman-init.sh"
+export PATH="/Users/deepaerial/.deta/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/deepaerial/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/deepaerial/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/deepaerial/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/deepaerial/google-cloud-sdk/completion.zsh.inc'; fi
+
 export PATH="$HOME/.poetry/bin:$PATH"
